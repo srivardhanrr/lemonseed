@@ -21,7 +21,7 @@
     let {children} = $props();
 </script>
 
-<div class="bg-[#0A0A0B] text-white">
+<div class="bg-black">
     <Cursor />
     <Header />
     <main>

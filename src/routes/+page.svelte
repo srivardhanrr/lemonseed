@@ -6,6 +6,6 @@ import HowWeWork from "$lib/components/Home/HowWeWork.svelte";
 
 <div>
     <Home />
-    <Services />
+<!--    <Services />-->
     <HowWeWork />
 </div>

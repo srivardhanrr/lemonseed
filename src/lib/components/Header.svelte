@@ -14,7 +14,7 @@
     let brandName: HTMLAnchorElement;
 
     const menuLinks = [
-        { title: 'Projects', path: '/projects', description: 'View our latest works' },
+        { title: 'Our Work', path: '/work', description: 'View our latest works' },
         { title: 'Studio', path: '/studio', description: 'Meet our creative team' },
         { title: 'Expertise', path: '/expertise', description: 'Discover what we do' },
         { title: 'Connect', path: '/connect', description: 'Let\'s create together' }

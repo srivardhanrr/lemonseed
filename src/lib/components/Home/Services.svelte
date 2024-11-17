@@ -1,287 +1,154 @@
+<!-- ServicesSection.svelte -->
 <script lang="ts">
     import { onMount } from 'svelte';
     import { browser } from '$app/environment';
 
-    let gsap: any;
-    let ScrollTrigger: any;
+    let servicesContainer: HTMLElement;
+    let serviceCards: HTMLElement[] = [];
+    let bentoGrid: HTMLElement;
 
-    interface Service {
-        title: string;
-        description: string;
-        icon: string;
-        details: string[];
-    }
-
-    const services: Service[] = [
+    const services = [
         {
             title: 'Digital Marketing',
-            description: 'Data-driven strategies that deliver results',
+            description: 'Data-driven strategies that deliver measurable results through SEO, PPC, and comprehensive digital campaigns.',
             icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>`,
-            details: ['SEO Optimization', 'PPC Campaigns', 'Analytics & Tracking', 'Marketing Automation']
+                </svg>`
         },
         {
             title: 'Content Creation',
-            description: 'Engaging content that tells your story',
+            description: 'Compelling storytelling through video, graphics, and written content that resonates with your audience.',
             icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>`,
-            details: ['Video Production', 'Blog Writing', 'Graphic Design', 'Visual Storytelling']
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>`
         },
         {
             title: 'Tech Development',
-            description: 'Cutting-edge solutions for modern businesses',
+            description: 'Cutting-edge web and app development solutions that transform ideas into powerful digital experiences.',
             icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>`,
-            details: ['Web Development', 'Mobile Apps', 'Custom Software', 'API Integration']
+                </svg>`
         },
         {
-            title: 'Social Media',
-            description: 'Building meaningful connections online',
+            title: 'Social Media Marketing',
+            description: 'Strategic social media campaigns that build engagement, grow communities, and drive brand awareness.',
             icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
-                </svg>`,
-            details: ['Strategy Development', 'Content Calendar', 'Community Management', 'Performance Analysis']
+                </svg>`
         }
     ];
 
-    let servicesSection: HTMLElement;
-    let headerTitle: HTMLElement;
-    let headerSubtitle: HTMLElement;
-    let serviceCards: HTMLElement[] = [];
-    let hoverTimelines: Map<number, GSAPTimeline> = new Map();
+    // Generate bento grid cells
+    const bentoGridCells = Array(24).fill(null).map((_, index) => ({
+        size: Math.random() > 0.85 ? 'large' : 'small',
+        animationDelay: `${Math.random() * 5}s`
+    }));
 
-    onMount(async () => {
+    onMount(() => {
         if (browser) {
-            const { gsap: g } = await import('gsap');
-            const { ScrollTrigger: ST } = await import('gsap/ScrollTrigger');
-            gsap = g;
-            ScrollTrigger = ST;
-            gsap.registerPlugin(ScrollTrigger);
-            setupAnimations();
+            // No GSAP or animations needed
         }
     });
-
-    function setupAnimations() {
-        if (!gsap || !servicesSection) return;
-
-        // Reset any existing animations
-        ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill());
-        gsap.globalTimeline.clear();
-
-        // Set initial states
-        gsap.set([headerTitle, headerSubtitle], {
-            opacity: 0,
-            y: 50
-        });
-
-        gsap.set(serviceCards, {
-            opacity: 0,
-            y: 100,
-            scale: 0.95
-        });
-
-        // Create master timeline
-        const masterTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: servicesSection,
-                start: "top 80%",
-                toggleActions: "play none none reverse"
-            }
-        });
-
-        // Header animations
-        masterTl.to(headerTitle, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out"
-        })
-            .to(headerSubtitle, {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power3.out"
-            }, "-=0.7");
-
-        // Cards animation
-        serviceCards.forEach((card, index) => {
-            masterTl.to(card, {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.8,
-                ease: "power3.out"
-            }, `-=${index > 0 ? 0.6 : 0}`);
-        });
-    }
-
-    function onServiceEnter(event: MouseEvent, index: number) {
-        if (!gsap) return;
-
-        const card = event.currentTarget as HTMLElement;
-        const icon = card.querySelector('.service-icon') as HTMLElement;
-        const title = card.querySelector('h3') as HTMLElement;
-        const description = card.querySelector('.description') as HTMLElement;
-        const details = card.querySelector('.details') as HTMLElement;
-
-        // Kill previous timeline if it exists
-        if (hoverTimelines.has(index)) {
-            hoverTimelines.get(index)?.kill();
-        }
-
-        const tl = gsap.timeline();
-        hoverTimelines.set(index, tl);
-
-        tl.to(card, {
-            y: -10,
-            scale: 1.02,
-            duration: 0.4,
-            ease: "power2.out"
-        })
-            .to(icon, {
-                scale: 1.1,
-                y: -5,
-                duration: 0.4,
-                ease: "back.out(1.7)"
-            }, 0)
-            .to(title, {
-                y: -5,
-                color: "#ffffff",
-                duration: 0.3
-            }, 0)
-            .to(description, {
-                opacity: 0.5,
-                duration: 0.3
-            }, 0)
-            .fromTo(details,
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.4 },
-                0.1
-            );
-    }
-
-    function onServiceLeave(event: MouseEvent, index: number) {
-        if (!gsap) return;
-
-        const card = event.currentTarget as HTMLElement;
-        const icon = card.querySelector('.service-icon') as HTMLElement;
-        const title = card.querySelector('h3') as HTMLElement;
-        const description = card.querySelector('.description') as HTMLElement;
-        const details = card.querySelector('.details') as HTMLElement;
-
-        // Kill previous timeline if it exists
-        if (hoverTimelines.has(index)) {
-            hoverTimelines.get(index)?.kill();
-        }
-
-        const tl = gsap.timeline();
-        hoverTimelines.set(index, tl);
-
-        tl.to([card, icon, title], {
-            y: 0,
-            scale: 1,
-            color: "inherit",
-            duration: 0.3,
-            ease: "power2.inOut"
-        })
-            .to(description, {
-                opacity: 1,
-                duration: 0.3
-            }, 0)
-            .to(details, {
-                y: 10,
-                opacity: 0,
-                duration: 0.3
-            }, 0);
-    }
 </script>
 
 <section
-        bind:this={servicesSection}
-        class="relative bg-black py-24 overflow-hidden"
+        bind:this={servicesContainer}
+        class="relative min-h-screen bg-black py-24 md:py-32 overflow-hidden perspective"
 >
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-30">
-        <div class="absolute inset-0 bg-pattern animate-slide-slow"></div>
-        <div class="absolute inset-0 backdrop-blur-[100px]"></div>
+    <!-- Bento Grid Background -->
+    <div
+            bind:this={bentoGrid}
+            class="absolute inset-0 overflow-hidden"
+    >
+        <div class="absolute inset-0 grid grid-cols-4 md:grid-cols-6 gap-4 p-8 transform -rotate-12 scale-125">
+            {#each bentoGridCells as cell, i}
+                <div
+                        class="bento-cell relative bg-gradient-to-br from-blue-500/10 to-purple-500/10
+                           rounded-lg border border-white/5"
+                        class:row-span-2={cell.size === 'large'}
+                        class:col-span-2={cell.size === 'large'}
+                        style="animation-delay: {cell.animationDelay}"
+                >
+                    <div class="absolute inset-0 bg-gradient-to-br from-transparent to-black/30"></div>
+                </div>
+            {/each}
+        </div>
     </div>
-<!--    <BackgroundGradient>-->
-    <div class="container mx-auto px-4 relative z-10">
+
+    <!-- Background gradient -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black via-gray-900/50 to-black"></div>
+
+    <div class="relative container mx-auto px-4 md:px-8">
         <!-- Section Header -->
-        <div class="text-center mb-16">
-            <h2
-                    bind:this={headerTitle}
-                    class="text-4xl md:text-5xl lg:text-6xl font-monument text-white mb-6"
-            >
-                Our Services
+        <div class="text-center mb-16 md:mb-24">
+            <h2 class="font-monument text-4xl md:text-5xl lg:text-6xl text-white mb-6 relative">
+                <span class="relative inline-block">
+                    Our Services
+                    <span class="absolute -bottom-2 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent"></span>
+                </span>
             </h2>
-            <p
-                    bind:this={headerSubtitle}
-                    class="text-white/70 text-lg md:text-xl font-grotesk max-w-2xl mx-auto"
-            >
+            <p class="font-grotesk text-gray-400 max-w-2xl mx-auto text-lg">
                 Elevating brands through innovative digital solutions and creative excellence
             </p>
         </div>
 
         <!-- Services Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
             {#each services as service, i}
                 <div
                         bind:this={serviceCards[i]}
-                        class="relative bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-white/10"
-                        on:mouseenter={(e) => onServiceEnter(e, i)}
-                        on:mouseleave={(e) => onServiceLeave(e, i)}
+                        class="relative group bg-gradient-to-br from-gray-900/80 to-black/80 p-8 rounded-lg border border-white/10 backdrop-blur-sm transform-gpu transition-all duration-300 hover:-translate-y-1"
                 >
+                    <!-- Card Background Glow -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
                     <!-- Service Icon -->
-                    <div class="service-icon text-white/80 mb-6">
+                    <div class="service-icon relative text-blue-500 mb-6 transform-gpu group-hover:scale-110 transition-transform duration-300">
                         {@html service.icon}
                     </div>
 
-                    <!-- Service Title -->
-                    <h3 class="text-2xl font-monument text-white/90 mb-3">{service.title}</h3>
+                    <!-- Service Content -->
+                    <div class="service-content relative">
+                        <h3 class="font-monument text-2xl text-white mb-4 group-hover:text-blue-400 transition-colors duration-300">
+                            {service.title}
+                        </h3>
 
-                    <!-- Service Description -->
-                    <p class="description text-white/70 font-grotesk mb-6">{service.description}</p>
+                        <p class="font-grotesk text-gray-400">
+                            {service.description}
+                        </p>
+                    </div>
 
-                    <!-- Service Details -->
-                    <div class="details opacity-0">
-                        <ul class="space-y-2">
-                            {#each service.details as detail}
-                                <li class="text-white/60 font-grotesk flex items-center">
-                                    <span class="w-1.5 h-1.5 bg-white/40 rounded-full mr-2"></span>
-                                    {detail}
-                                </li>
-                            {/each}
-                        </ul>
+                    <!-- Decorative corner -->
+                    <div class="absolute top-0 right-0 w-16 h-16 overflow-hidden opacity-50">
+                        <div class="absolute top-0 right-0 w-[2px] h-8 bg-gradient-to-b from-transparent to-blue-500/50"></div>
+                        <div class="absolute top-0 right-0 h-[2px] w-8 bg-gradient-to-l from-transparent to-blue-500/50"></div>
                     </div>
                 </div>
             {/each}
         </div>
     </div>
-<!--    </BackgroundGradient>-->
 </section>
 
 <style lang="postcss">
-    .bg-pattern {
-        background-image:
-                linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
-        background-size: 30px 30px;
+    .perspective {
+        perspective: 1000px;
     }
 
-    .animate-slide-slow {
-        animation: slideBackground 20s linear infinite;
+    :global(.service-icon svg) {
+        @apply transition-all duration-300;
     }
 
-    @keyframes slideBackground {
-        from {
-            transform: translate(0, 0);
+    .bento-cell {
+        animation: float 6s infinite;
+        opacity: 0.15;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translate(0, 0) rotate(0deg);
         }
-        to {
-            transform: translate(-30px, -30px);
+        50% {
+            transform: translate(10px, 10px) rotate(3deg);
         }
     }
 </style>
