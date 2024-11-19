@@ -66,13 +66,13 @@
     <div class="container mx-auto px-2 md:px-8">
         <div class="max-w-5xl">
             <!-- Headline -->
-            <div class="mb-6 overflow-x-hidden">
-                <span class="inline-block font-monument text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-tight">
-                    We Create Digital
+            <div class="mb-6">
+                <span class="inline-block font-monument text-5xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-tight">
+                    We Create <br /> Digital
                 </span>
                 <br />
                 <span
-                        class="inline-block font-monument text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight animate-gradient bg-gradient-to-r bg-clip-text text-transparent from-[#000030] via-blue-900 to-[#000030] bg-[length:200%_auto]"
+                        class="inline-block font-monument text-5xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight animate-gradient bg-gradient-to-r bg-clip-text text-transparent from-[#000030] via-blue-900 to-[#000030] bg-[length:200%_auto]"
                 >
                     Experiences
                 </span>
@@ -82,7 +82,7 @@
             <div class="mt-6 max-w-xl">
                 <p
                         bind:this={subheadline}
-                        class="text-md md:text-xl text-gray-400 leading-relaxed"
+                        class="text-sm md:text-xl text-gray-400 leading-relaxed"
                 >
                     We craft exceptional digital experiences that elevate brands
                     and drive meaningful results through innovative design.
@@ -95,7 +95,7 @@
                         on:click={smoothScroll}
                         class="group inline-flex items-center mt-10 relative"
                 >
-                    <span class="relative z-10 pr-10 py-5 text-white font-grotesk text-lg tracking-wider uppercase">
+                    <span class="relative z-10 pr-10 py-5 text-white text-md md:text-lg tracking-wider uppercase">
                         Let's Create Together
                     </span>
                     <span
