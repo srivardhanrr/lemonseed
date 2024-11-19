@@ -66,7 +66,7 @@
     <div class="container mx-auto px-2 md:px-8">
         <div class="max-w-5xl">
             <!-- Headline -->
-            <div class="mb-6">
+            <div class="mb-6 overflow-x-hidden">
                 <span class="inline-block font-monument text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-tight">
                     We Create Digital
                 </span>
