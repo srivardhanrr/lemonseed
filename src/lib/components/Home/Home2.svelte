@@ -63,7 +63,7 @@
     <!-- Content Container -->
     <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="blue" />
     <Spotlight className="top-96 -bottom-20 left-50" fill="blue" />
-    <div class="container mx-auto px-4 md:px-8">
+    <div class="container mx-auto px-2 md:px-8">
         <div class="max-w-5xl">
             <!-- Headline -->
             <div class="mb-6">
@@ -82,7 +82,7 @@
             <div class="mt-6 max-w-xl">
                 <p
                         bind:this={subheadline}
-                        class="text-lg md:text-xl text-gray-400 leading-relaxed"
+                        class="text-md md:text-xl text-gray-400 leading-relaxed"
                 >
                     We craft exceptional digital experiences that elevate brands
                     and drive meaningful results through innovative design.
