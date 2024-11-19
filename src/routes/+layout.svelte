@@ -25,7 +25,7 @@
     let {children} = $props();
 </script>
 
-<div class="bg-black">
+<div class="bg-black overflow-hidden">
     <Cursor />
     <Header />
     <main>
