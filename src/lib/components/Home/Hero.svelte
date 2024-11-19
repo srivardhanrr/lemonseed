@@ -2,19 +2,21 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { browser } from '$app/environment';
-    import {Spotlight} from "$lib/components/ui/Spotlight";
+    import { Spotlight } from "$lib/components/ui/Spotlight";
+    import TextReveal from "$lib/components/Animation/TextReveal.svelte";
 
     let gsap: any;
     let mainContainer: HTMLElement;
     let subheadline: HTMLElement;
     let ctaButton: HTMLElement;
+    let experiencesText: HTMLElement;
 
     onMount(async () => {
         if (browser) {
             const gsapModule = await import('gsap');
             gsap = gsapModule.gsap;
 
-            gsap.set([subheadline, ctaButton], {
+            gsap.set([subheadline, ctaButton, experiencesText], {
                 opacity: 0,
                 y: 20
             });
@@ -26,59 +28,50 @@
     });
 
     function setupAnimations() {
-        if (!gsap || !subheadline || !ctaButton) return;
+        if (!gsap || !subheadline || !ctaButton || !experiencesText) return;
 
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-        tl.to(subheadline, {
+        tl.to(experiencesText, {
             opacity: 1,
             y: 0,
             duration: 1,
-            delay: 0.3
+            delay: 1.2
         })
+            .to(subheadline, {
+                opacity: 1,
+                y: 0,
+                duration: 1
+            }, "-=0.5")
             .to(ctaButton, {
                 opacity: 1,
                 y: 0,
                 duration: 0.8
             }, "-=0.5");
     }
-
-    function smoothScroll(e: Event) {
-        e.preventDefault();
-        const target = document.querySelector('#about');
-        if (!target || !gsap) return;
-
-        gsap.to(window, {
-            duration: 1,
-            scrollTo: { y: target, autoKill: true },
-            ease: "power3.inOut"
-        });
-    }
 </script>
 
 <section
         bind:this={mainContainer}
-        class="relative bg-black  min-h-screen flex items-center pt-24 md:pt-28"
+        class="relative min-h-screen flex items-center pt-24 md:pt-28"
 >
-    <!-- Content Container -->
     <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="blue" />
     <Spotlight className="top-96 -bottom-20 left-50" fill="blue" />
-    <div class="container mx-auto px-2 md:px-8 overflow-hidden">
+    <div class="container mx-auto px-2 md:px-8 overflow-hidden relative z-10">
         <div class="max-w-5xl">
-            <!-- Headline -->
             <div class="mb-6">
-                <span class="inline-block font-monument text-5xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-tight">
-                    We Create <br /> Digital
-                </span>
-                <br />
+                <TextReveal
+                        text="We Create Digital"
+                        className="font-monument text-5xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-tight"
+                />
                 <span
+                        bind:this={experiencesText}
                         class="inline-block font-monument text-5xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight animate-gradient bg-gradient-to-r bg-clip-text text-transparent from-[#000030] via-blue-900 to-[#000030] bg-[length:200%_auto]"
                 >
                     Experiences
                 </span>
             </div>
 
-            <!-- Subheadline -->
             <div class="mt-6 max-w-xl">
                 <p
                         bind:this={subheadline}
@@ -88,12 +81,10 @@
                     and drive meaningful results through innovative design.
                 </p>
 
-                <!-- CTA Button -->
                 <a
-                        href="#about"
+                        href="/connect"
                         bind:this={ctaButton}
-                        on:click={smoothScroll}
-                        class="group inline-flex items-center mt-10 relative"
+                        class="group inline-flex items-center mt-10 relative z-20"
                 >
                     <span class="relative z-10 pr-10 py-5 text-white text-md md:text-lg tracking-wider uppercase">
                         Let's Create Together
@@ -105,15 +96,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                     </span>
-                    <!-- Button line animation -->
                     <span class="absolute bottom-0 left-0 w-full h-px overflow-hidden">
-                        <span class="absolute inset-0 bg-gradient-to-r from-blue-800 via-blue-500 to-blue-800 w-[200%]"></span>
+                        <span class="absolute inset-0 bg-gradient-to-r from-blue-800 via-blue-500 to-blue-800 w-[200%] animate-slide"></span>
                     </span>
                 </a>
             </div>
         </div>
     </div>
-
 </section>
 
 <style lang="postcss">
