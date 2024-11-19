@@ -1,6 +1,8 @@
 import { fontFamily } from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
+import defaultTheme from 'tailwindcss/defaultTheme'
+
 
 const config: Config = {
 	darkMode: ["class"],
@@ -16,6 +18,8 @@ const config: Config = {
 		},
 		extend: {
 			colors: {
+				'brand-primary': '#ffffff',
+				'brand-secondary': '#000030',
 				border: "hsl(var(--border) / <alpha-value>)",
 				input: "hsl(var(--input) / <alpha-value>)",
 				ring: "hsl(var(--ring) / <alpha-value>)",
@@ -67,7 +71,7 @@ const config: Config = {
 				sm: "calc(var(--radius) - 4px)"
 			},
 			fontFamily: {
-				sans: [...fontFamily.sans]
+				sans: ['Inter', ...defaultTheme.fontFamily.sans]
 			},
 			keyframes: {
 				spotlight: {

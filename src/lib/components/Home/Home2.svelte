@@ -58,7 +58,7 @@
 
 <section
         bind:this={mainContainer}
-        class="relative bg-black min-h-screen flex items-center bg-grid-white/[0.02] pt-24 md:pt-28"
+        class="relative bg-black  min-h-screen flex items-center overflow-x-hidden pt-24 md:pt-28"
 >
     <!-- Content Container -->
     <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="blue" />
@@ -72,7 +72,7 @@
                 </span>
                 <br />
                 <span
-                        class="inline-block font-monument text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight animate-gradient bg-gradient-to-r bg-clip-text text-transparent from-[#000030] via-blue-900 to-[#000030] bg-[length:200%_auto]"
+                        class="inline-block font-monument text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight animate-gradient bg-gradient-to-r bg-clip-text text-transparent from-brand-secondary via-blue-900 to-brand-secondary bg-[length:200%_auto]"
                 >
                     Experiences
                 </span>
