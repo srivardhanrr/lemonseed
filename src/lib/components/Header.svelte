@@ -285,7 +285,7 @@
     >
         <div
                 bind:this={menuBackground}
-                class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"
+                class="absolute inset-0 bg-gradient-to-br from-black via-gray-950 to-black"
         ></div>
 
         <div class="absolute inset-0 opacity-30">
@@ -314,7 +314,7 @@
                 <span class="menu-text relative inline-block text-white/50 group-hover:text-white transition-colors duration-300">
                   {title}
                 </span>
-                                <span class="menu-number font-grotesk text-sm text-white/30 ml-4 group-hover:text-white/50">
+                                <span class="menu-number text-sm text-white/30 ml-4 group-hover:text-white/50">
                   0{i + 1}
                 </span>
                                 <span class="absolute top-1/2 -translate-y-1/2 right-0 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-4 transition-all duration-300">
@@ -337,12 +337,12 @@
                     <div class="absolute inset-0 flex items-center justify-center">
                         <div class="w-4/5 h-4/5 rounded-full bg-gradient-to-tr from-white/5 to-transparent border border-white/10 animate-spin-slow"></div>
                         <div class="absolute w-3/5 h-3/5 rounded-full bg-gradient-to-bl from-white/5 to-transparent border border-white/10 animate-spin-reverse"></div>
-                        <div class="absolute w-2/5 h-2/5 rounded-full bg-gradient-to-r from-white/5 to-transparent border border-white/10 animate-pulse"></div>
+                        <div class="absolute w-2/5 h-2/5 rounded-full bg-gradient-to-r from-white/5 to-transparent border border-white/10 animate-spin-slow"></div>
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center overflow-hidden rounded-full">
-                        <div class="w-1/2 h-1/2 bg-gradient-to-tr from-white/10 to-transparent backdrop-blur-sm rounded-full flex items-center justify-center">
-                            <span class="font-grotesk text-white/70 text-xl">Create Together</span>
-                        </div>
+<!--                        <div class="w-1/2 h-1/2 bg-gradient-to-tr from-white/10 to-transparent backdrop-blur-sm rounded-full flex items-center justify-center">-->
+<!--                            <span class="font-grotesk text-white/70 text-xl">Create Together</span>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
