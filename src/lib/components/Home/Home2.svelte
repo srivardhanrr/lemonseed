@@ -63,7 +63,7 @@
     <!-- Content Container -->
     <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="blue" />
     <Spotlight className="top-96 -bottom-20 left-50" fill="blue" />
-    <div class="container mx-auto px-2 md:px-8">
+    <div class="container mx-auto px-2 md:px-8 overflow-hidden">
         <div class="max-w-5xl">
             <!-- Headline -->
             <div class="mb-6">
