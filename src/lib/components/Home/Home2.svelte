@@ -2,28 +2,25 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { browser } from '$app/environment';
+    import {Spotlight} from "$lib/components/ui/Spotlight";
 
     let gsap: any;
     let mainContainer: HTMLElement;
     let subheadline: HTMLElement;
     let ctaButton: HTMLElement;
-    let backgroundShapes: HTMLElement;
 
     onMount(async () => {
         if (browser) {
             const gsapModule = await import('gsap');
             gsap = gsapModule.gsap;
 
-            // Set initial states
             gsap.set([subheadline, ctaButton], {
                 opacity: 0,
                 y: 20
             });
 
-            // Ensure DOM is ready before animations
             setTimeout(() => {
                 setupAnimations();
-                setupParticles();
             }, 100);
         }
     });
@@ -46,24 +43,6 @@
             }, "-=0.5");
     }
 
-    function setupParticles() {
-        if (!gsap || !backgroundShapes) return;
-
-        const particles = backgroundShapes.querySelectorAll('.particle');
-
-        particles.forEach((particle) => {
-            gsap.to(particle, {
-                x: "random(-100, 100, 5)",
-                y: "random(-100, 100, 5)",
-                rotation: "random(-180, 180)",
-                duration: "random(20, 30)",
-                repeat: -1,
-                yoyo: true,
-                ease: "none"
-            });
-        });
-    }
-
     function smoothScroll(e: Event) {
         e.preventDefault();
         const target = document.querySelector('#about');
@@ -79,25 +58,12 @@
 
 <section
         bind:this={mainContainer}
-        class="relative min-h-screen flex items-center overflow-hidden bg-black pt-24 md:pt-28"
+        class="relative bg-black min-h-screen flex items-center bg-grid-white/[0.02] pt-24 md:pt-28"
 >
-    <!-- Background Particles -->
-    <div
-            bind:this={backgroundShapes}
-            class="absolute inset-0 opacity-20"
-    >
-        {#each Array(15) as _, i}
-            <div
-                    class="particle absolute w-24 h-24 opacity-30"
-                    style="left: {Math.random() * 100}%; top: {Math.random() * 100}%;"
-            >
-                <div class="w-full h-full rounded-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 blur-sm"></div>
-            </div>
-        {/each}
-    </div>
-
     <!-- Content Container -->
-    <div class="relative z-10 container mx-auto px-4 md:px-8">
+    <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="blue" />
+    <Spotlight className="top-96 -bottom-20 left-50" fill="blue" />
+    <div class="container mx-auto px-4 md:px-8">
         <div class="max-w-5xl">
             <!-- Headline -->
             <div class="mb-6">
@@ -106,7 +72,7 @@
                 </span>
                 <br />
                 <span
-                        class="inline-block font-monument text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight animate-gradient bg-gradient-to-r bg-clip-text text-transparent from-blue-500 via-purple-500 to-blue-500 bg-[length:200%_auto]"
+                        class="inline-block font-monument text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight animate-gradient bg-gradient-to-r bg-clip-text text-transparent from-[#000030] via-blue-900 to-[#000030] bg-[length:200%_auto]"
                 >
                     Experiences
                 </span>
@@ -116,7 +82,7 @@
             <div class="mt-6 max-w-xl">
                 <p
                         bind:this={subheadline}
-                        class="text-lg md:text-xl text-gray-400 font-grotesk leading-relaxed"
+                        class="text-lg md:text-xl text-gray-400 leading-relaxed"
                 >
                     We craft exceptional digital experiences that elevate brands
                     and drive meaningful results through innovative design.
@@ -141,19 +107,16 @@
                     </span>
                     <!-- Button line animation -->
                     <span class="absolute bottom-0 left-0 w-full h-px overflow-hidden">
-                        <span class="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 w-[200%] animate-slide"></span>
+                        <span class="absolute inset-0 bg-gradient-to-r from-blue-800 via-blue-500 to-blue-800 w-[200%]"></span>
                     </span>
                 </a>
             </div>
         </div>
     </div>
+
 </section>
 
 <style lang="postcss">
-    :global(.particle) {
-        will-change: transform;
-    }
-
     @keyframes slide {
         from {
             transform: translateX(-100%);

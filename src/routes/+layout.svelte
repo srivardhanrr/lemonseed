@@ -22,7 +22,7 @@
 </script>
 
 <div class="bg-black">
-    <Cursor />
+<!--    <Cursor />-->
     <Header />
     <main>
         {@render children()}

@@ -30,6 +30,7 @@
 	},
 	"dependencies": {
 		"@fontsource/space-grotesk": "^5.1.0",
+		"@sveltejs/enhanced-img": "^0.4.1",
 		"gsap": "^3.12.5",
 		"lenis": "^1.1.16",
 		"resend": "^4.0.1-alpha.0",
