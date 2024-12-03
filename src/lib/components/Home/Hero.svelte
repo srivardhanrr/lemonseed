@@ -6,38 +6,33 @@
     import TextReveal from "$lib/components/Animation/TextReveal.svelte";
 
     let gsap: any;
-    let mainContainer: HTMLElement;
     let subheadline: HTMLElement;
     let ctaButton: HTMLElement;
     let experiencesText: HTMLElement;
 
     onMount(async () => {
         if (browser) {
-            const gsapModule = await import('gsap');
-            gsap = gsapModule.gsap;
+            gsap = (await import('gsap')).gsap;
 
             gsap.set([subheadline, ctaButton, experiencesText], {
                 opacity: 0,
                 y: 20
             });
 
-            setTimeout(() => {
-                setupAnimations();
-            }, 100);
+            setTimeout(setupAnimations, 100);
         }
     });
 
     function setupAnimations() {
         if (!gsap || !subheadline || !ctaButton || !experiencesText) return;
 
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-        tl.to(experiencesText, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            delay: 1.2
-        })
+        gsap.timeline({ defaults: { ease: "power3.out" } })
+            .to(experiencesText, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                delay: 1.2
+            })
             .to(subheadline, {
                 opacity: 1,
                 y: 0,
@@ -51,18 +46,20 @@
     }
 </script>
 
-<section
-        bind:this={mainContainer}
-        class="relative min-h-screen flex items-center pt-24 md:pt-28"
->
+<section class="relative min-h-screen flex items-center pt-24 md:pt-28">
     <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="blue" />
     <Spotlight className="top-96 -bottom-20 left-50" fill="blue" />
-    <div class="container mx-auto px-2 md:px-8 overflow-hidden relative z-10">
-        <div class="max-w-5xl">
+
+    <div class="w-full px-6 md:px-10 overflow-hidden relative z-10">
+        <div class="max-w-7xl">
             <div class="mb-6">
                 <TextReveal
-                        text="We Create Digital"
+                        text="We Create"
                         className="font-monument text-5xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-tight"
+                />
+                <TextReveal
+                        text="Digital"
+                        className="font-monument text-5xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-tight block"
                 />
                 <span
                         bind:this={experiencesText}
@@ -89,9 +86,7 @@
                     <span class="relative z-10 pr-10 py-5 text-white text-md md:text-lg tracking-wider uppercase">
                         Let's Create Together
                     </span>
-                    <span
-                            class="absolute right-0 top-1/2 -translate-y-1/2 transition-transform duration-300 ease-out group-hover:translate-x-1"
-                    >
+                    <span class="absolute right-0 top-1/2 -translate-y-1/2 transition-transform duration-300 ease-out group-hover:translate-x-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -107,12 +102,8 @@
 
 <style lang="postcss">
     @keyframes slide {
-        from {
-            transform: translateX(-100%);
-        }
-        to {
-            transform: translateX(0%);
-        }
+        from { transform: translateX(-100%); }
+        to { transform: translateX(0%); }
     }
 
     .animate-slide {
@@ -120,15 +111,9 @@
     }
 
     @keyframes gradient {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
 
     .animate-gradient {

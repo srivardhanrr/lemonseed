@@ -73,3 +73,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+* {
+  scrollbar-width: thin; /* This is already the thinnest option in Firefox */
+  scrollbar-color: #000030 #000000;
+}

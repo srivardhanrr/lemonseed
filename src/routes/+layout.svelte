@@ -9,6 +9,7 @@
     import { onMount, onDestroy } from 'svelte'
     import { initLenis, destroyLenis } from '$lib/lenis'
     import Cursor from "$lib/components/Cursor.svelte";
+    import Footer from "$lib/components/Footer.svelte";
 
     onMount(() => {
         if (browser) {
@@ -26,10 +27,11 @@
 </script>
 
 <div class="bg-black overflow-hidden">
-    <Cursor />
     <Header />
     <main>
         {@render children()}
+        <Footer />
+
     </main>
 </div>
 

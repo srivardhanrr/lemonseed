@@ -239,13 +239,22 @@
                 class:bg-black={isScrolled}
                 class:bg-opacity-30={isScrolled}
         >
-            <div class="container mx-auto px-4 py-4 md:py-6 flex justify-between items-center">
+            <div class="w-full px-6 md:px-12  py-4 md:py-6 flex justify-between items-center">
                 <a
                         bind:this={brandName}
                         href="/"
-                        class="text-2xl md:text-3xl text-white transition-colors z-50 relative font-monument hover:text-white/80"
+                        class="flex items-center gap-3 text-white transition-colors z-50 relative hover:text-white/80"
                 >
-                    lemonseed studio
+                    <img
+                            src="/images/logo.png"
+                            alt="Lemonseed Studio Logo"
+                            class="w-8 h-8 md:w-10 md:h-10"
+                            width={32}
+                            height={32}
+                    />
+                    <span class="text-2xl md:text-3xl font-monument">
+                        Lemonseed.studio
+                    </span>
                 </a>
 
                 <button
@@ -294,10 +303,10 @@
         </div>
 
         <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 h-full">
-            <nav class="h-full flex items-center justify-center p-8">
+            <nav class="h-full flex items-center p-8 md:p-12">
                 <ul
                         bind:this={menuItems}
-                        class="flex flex-col items-start space-y-6 perspective w-full max-w-md"
+                        class="flex flex-col items-start space-y-6 perspective w-full max-w-3xl"
                 >
                     {#each menuLinks as { title, path }, i}
                         <li
@@ -332,17 +341,17 @@
                 </ul>
             </nav>
 
-            <div class="hidden lg:flex items-center justify-center p-8">
-                <div class="relative w-full max-w-md aspect-square right-panel-content">
+            <div class="hidden lg:flex items-center p-8 md:p-10">
+                <div class="relative w-full max-w-2xl aspect-square right-panel-content">
                     <div class="absolute inset-0 flex items-center justify-center">
                         <div class="w-4/5 h-4/5 rounded-full bg-gradient-to-tr from-white/5 to-transparent border border-white/10 animate-spin-slow"></div>
                         <div class="absolute w-3/5 h-3/5 rounded-full bg-gradient-to-bl from-white/5 to-transparent border border-white/10 animate-spin-reverse"></div>
                         <div class="absolute w-2/5 h-2/5 rounded-full bg-gradient-to-r from-white/5 to-transparent border border-white/10 animate-spin-slow"></div>
                     </div>
                     <div class="absolute inset-0 flex items-center justify-center overflow-hidden rounded-full">
-<!--                        <div class="w-1/2 h-1/2 bg-gradient-to-tr from-white/10 to-transparent backdrop-blur-sm rounded-full flex items-center justify-center">-->
-<!--                            <span class="font-grotesk text-white/70 text-xl">Create Together</span>-->
-<!--                        </div>-->
+                        <!--                        <div class="w-1/2 h-1/2 bg-gradient-to-tr from-white/10 to-transparent backdrop-blur-sm rounded-full flex items-center justify-center">-->
+                        <!--                            <span class="font-grotesk text-white/70 text-xl">Create Together</span>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
